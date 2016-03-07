@@ -1,0 +1,54 @@
+---
+- hosts: all
+  vars:
+    - reinstall_homebrew: 'False'
+  roles:
+    - aws
+
+  tasks:  
+  - name: Uninstall Homebrew
+    shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
+    when: reinstall_homebrew == 'True'
+
+  - name: Ensure Homebrew is installed
+    shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    when: reinstall_homebrew == 'True'
+
+  - name: Uninstall old homebrew cask
+    shell: brew uninstall --force brew-cask; brew update
+
+  - name: Install homebrew_taps
+    homebrew_tap: tap={{item}} state=present
+    with_items:
+       - gapple/services
+       - pivotal/tap
+       - caskroom/cask
+
+  - name: Install libraries with homebrew
+    homebrew: name={{ item }} state=present
+    with_items:
+       - coreutils
+       - git
+       - maven
+       - gradle
+       - dnsmasq
+       - httpie
+       - mackup
+       - mongodb
+       - neo4j      
+
+  - name: Install libraries with homebrew cask
+    homebrew_cask: name={{item}} state=present
+    with_items:
+       - sourcetree
+       - java
+       #- virtualbox
+       #- docker
+       #- boot2docker
+       #- oh-my-zsh
+
+
+#    - name: Start services at login
+#      file: src=/usr/local/opt/{{ item }}/homebrew.mxcl.{{ item }}.plist path=~/Library/LaunchAgents/homebrew.mxcl.{{ item }}.plist state=link force=yes
+#      with_items: 
+#       - neo4j
