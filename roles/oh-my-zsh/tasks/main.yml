@@ -1,0 +1,29 @@
+---
+
+- name: Install zsh with completions
+  homebrew: name={{ item }} state=present
+  with_items:
+    - zsh
+    - zsh-completions
+
+- name: Install Oh-My-Zsh
+  shell: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# - name: Ensure zsh is default shell
+#   shell: chsh -s $(which zsh) {{current_user}}
+#   become: yes
+#   become_method: sudo
+
+- name: Does user conf folder exist?
+  stat: path={{ env_shell_script_folder }}
+  register: user_config_folder_exists
+
+- name: Create user conf folder if it doesn't exist
+  file: state=directory path={{ env_shell_script_folder }} group=staff
+  when: user_config_folder_exists.stat.exists == False
+
+- name: Create env.sh file
+  template: src=templates/env.sh.j2 dest={{ env_shell_script_location }} owner={{current_user}}
+
+- name: Create .zshrc file
+  template: src=templates/zshrc.j2 dest={{ env_zshrc_script_location }} owner={{current_user}} mode=755
