@@ -1,0 +1,39 @@
+---
+- name: Uninstall Homebrew
+  shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
+  when: reinstall_homebrew == 'True'
+
+- name: Ensure Homebrew is installed
+  shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: reinstall_homebrew == 'True'
+
+- name: Uninstall old homebrew cask
+  shell: brew uninstall --force brew-cask; brew update
+
+- name: Install homebrew_taps
+  homebrew_tap: tap={{item}} state=present
+  with_items:
+   - gapple/services
+   - pivotal/tap
+   - caskroom/cask
+
+- name: Install libraries with homebrew
+  homebrew: name={{ item }} state=present
+  with_items:
+   - coreutils  
+   - git
+   - maven
+   - gradle
+   - dnsmasq
+   - httpie
+   - mackup
+   - mongodb
+   - neo4j
+
+- name: Install libraries with homebrew cask
+  homebrew_cask: name={{item}} state=present
+  with_items:
+   - sourcetree
+   - java
+   - iterm2
+   - intellij-idea

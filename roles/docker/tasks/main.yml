@@ -1,0 +1,12 @@
+---
+
+- name: Install virtualbox for docker
+  homebrew_cask: name={{ item }} state=present
+  with_items:
+    - virtualbox
+
+- name: Install docker
+  homebrew: name={{ item }} state=present
+  with_items:
+    - docker
+    - boot2docker
