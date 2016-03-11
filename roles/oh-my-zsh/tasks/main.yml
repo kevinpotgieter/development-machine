@@ -6,16 +6,14 @@
     - zsh
     - zsh-completions
 
+- stat: path={{oh_my_zsh_installation_folder}}
+  register: oh_my_zsh
+
 - name: Install Oh-My-Zsh
   shell: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  when: oh_my_zsh.stat.exists == False
 
-# - name: Ensure zsh is default shell
-#   shell: chsh -s $(which zsh) {{current_user}}
-#   become: yes
-#   become_method: sudo
-
-- name: Does user conf folder exist?
-  stat: path={{ env_shell_script_folder }}
+- stat: path={{ env_shell_script_folder }}
   register: user_config_folder_exists
 
 - name: Create user conf folder if it doesn't exist

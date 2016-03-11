@@ -1,3 +1,4 @@
 env_shell_script_folder: "{{ ansible_env.HOME }}/conf"
 env_shell_script_location: "{{ env_shell_script_folder }}/env.sh"
 env_zshrc_script_location: "{{ ansible_env.HOME }}/.zshrc"
+oh_my_zsh_installation_folder: "{{ ansible_env.HOME }}/.oh-my-zsh"

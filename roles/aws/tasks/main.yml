@@ -1,7 +1,6 @@
 ---
 # This role configures aws credentials file
-  - name: Does .aws folder exist?
-    stat: path={{ aws_user_folder }}
+  - stat: path={{ aws_user_folder }}
     register: aws_user_folder_exists
 
   - name: Create .aws folder if it doesn't exist
