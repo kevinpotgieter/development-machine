@@ -15,6 +15,7 @@ dockitems_to_remove:
   - System Preferences
   - Calendar
   - iTerm
+  - IntelliJ IDEA 15
  
 dockitems_to_add:
   - name: Google Chrome
