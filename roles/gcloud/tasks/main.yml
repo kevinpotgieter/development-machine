@@ -1,0 +1,3 @@
+---
+  - pip: name=apache-libcloud
+    become: True
