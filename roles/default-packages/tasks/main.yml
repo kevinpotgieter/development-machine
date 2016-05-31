@@ -42,3 +42,11 @@
    - google-drive
    - shiftit
    - google-cloud-sdk
+
+- name: Install gems via RubyGems...
+  gem: name={{item.name}} version={{item.version}} state=present
+  with_items: 
+     - { name: 'jekyll', version: '3.1.2' }
+
+
+
