@@ -5,6 +5,7 @@
 
 - name: Ensure Homebrew is installed
   shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  become: True
   when: reinstall_homebrew == 'True'
 
 - name: Uninstall old homebrew cask
@@ -16,9 +17,11 @@
    - gapple/services
    - pivotal/tap
    - caskroom/cask
+   - caskroom/versions
+   - homebrew/versions
 
 - name: Install libraries with homebrew
-  homebrew: name={{ item }} state=present
+  homebrew: name={{ item }} state=present update_homebrew=yes
   with_items:
    - coreutils  
    - git
@@ -29,6 +32,11 @@
    - mackup
    - mongodb
    - neo4j
+   - awscli 
+   - cfssl 
+   - jq
+   - kubernetes-cli 
+   - terraform
 
 - name: Install libraries with homebrew cask
   homebrew_cask: name={{item}} state=present

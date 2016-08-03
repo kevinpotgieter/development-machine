@@ -5,8 +5,13 @@
   with_items:
     - virtualbox
 
-- name: Install docker
-  homebrew: name={{ item }} state=present
+- name: remove old docker
+  homebrew: name={{ item }} state=absent
   with_items:
     - docker
     - boot2docker
+
+- name: Install docker toolbox for docker on MacOSX
+  homebrew_cask: name={{ item }} state=present
+  with_items:
+    - docker-toolbox

@@ -16,6 +16,7 @@ dockitems_to_remove:
   - Calendar
   - iTerm
   - IntelliJ IDEA 15
+  - IntelliJ IDEA
  
 dockitems_to_add:
   - name: Google Chrome
@@ -39,6 +40,6 @@ dockitems_to_add:
   - name: Facetime
     path: /Applications/FaceTime.app
     pos: 7
-  - name: Intellij Idea 15
-    path: "/Applications/IntelliJ IDEA 15.app"
+  - name: IntelliJ IDEA
+    path: "/Applications/IntelliJ IDEA.app"
     pos: 8

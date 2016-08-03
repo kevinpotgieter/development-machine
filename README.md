@@ -15,4 +15,4 @@ ansible-playbook -i hosts playbook.yml
 ## Optional
 If you want to ensure that Homebrew is reinstalled then run with the additional parameters:
 
-ansible-playbook -i hosts playbook.yml --extra-vars "reinstall_homebrew=True" 
+ansible-playbook -i hosts playbook.yml --ask-sudo-pass --extra-vars "reinstall_homebrew=True" 
