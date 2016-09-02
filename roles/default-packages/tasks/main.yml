@@ -37,6 +37,8 @@
    - jq
    - kubernetes-cli 
    - terraform
+   - packer
+   - sbt
 
 - name: Install libraries with homebrew cask
   homebrew_cask: name={{item}} state=present
