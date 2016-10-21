@@ -19,6 +19,7 @@
    - caskroom/cask
    - caskroom/versions
    - homebrew/versions
+   - atomist/tap
 
 - name: Install libraries with homebrew
   homebrew: name={{ item }} state=present update_homebrew=yes
@@ -39,6 +40,8 @@
    - terraform
    - packer
    - sbt
+   - rug-cli
+   - rug-shell
 
 - name: Install libraries with homebrew cask
   homebrew_cask: name={{item}} state=present
